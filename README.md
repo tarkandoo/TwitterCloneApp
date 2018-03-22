@@ -1,5 +1,5 @@
 # Twitter clone app
-This is my first MEAN app __
+This is my first MEAN app <br/>
 
 # Prerequisites
 MongoDB installed and running [mongodb](http://mongodb.org) <br/>
