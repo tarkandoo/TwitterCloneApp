@@ -1,6 +1,6 @@
 var express=require('express');
 var app=express();
-var routes=require('./app/middlewares/routes');
+var routes=require('./app/routes/routes');
 var port=3000;
 
 app.use('/',routes);
