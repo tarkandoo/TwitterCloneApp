@@ -54,6 +54,7 @@ gulp.task('browser-sync',['nodemon'], function() {
     browserSync.init({
         proxy: "http://localhost:3000",
         files: ['./app'],
+        browser:['chrome.exe','firefox.exe'],
         port: 4000
     });
 });
@@ -77,7 +78,7 @@ gulp.task('nodemon',[], function (cb) {
 	}).on('restart',function(){
 		seTimeout(function(){
 			reload();
-		},500);
+		},200);
 	});
 });
 
