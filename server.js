@@ -1,7 +1,7 @@
 var express=require('express');
 var app=express();
 var routes=require('./app/routes/routes');
-var port=3000;
+var port=process.env.PORT || 3000;
 
 app.use('/',routes);
 app.use(express.static(__dirname+'/app'));
