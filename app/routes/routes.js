@@ -1,7 +1,7 @@
 var express=require('express');
 var router=express.Router();
 var mongojs=require('mongojs');
-var db = mongojs('tweets');
+var db = mongojs('mongodb://tarik:tarik123@ds131914.mlab.com:31914/tweetsdb');
 var tweets = db.collection('tweets');
 var bodyParser=require('body-parser');
 
