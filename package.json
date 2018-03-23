@@ -1,6 +1,7 @@
 {
   "name": "twittercloneapp",
   "version": "1.0.0",
+  "start": "node server.js",
   "description": "This is my first MEAN app",
   "main": "server.js",
   "dependencies": {
