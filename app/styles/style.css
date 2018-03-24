@@ -20,3 +20,13 @@ body{
 .panel-body{
 	position: relative;
 }
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [class*="col-xs"] {
+	    float: none !important;
+		width: 75% !important;
+		margin: 0 auto;
+		text-align: center;
+		padding-bottom: 15px;
+    }
+}
