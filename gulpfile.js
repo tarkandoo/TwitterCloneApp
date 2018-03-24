@@ -9,6 +9,7 @@ var gulp=require('gulp'),
 	browserSync=require('browser-sync').create(),
 	reload=browserSync.reload,
 	nodemon=require('gulp-nodemon'),
+	concat=require('gulp-concat'),
 	minify=require('gulp-minify-css');
 
 ///////////////////////////////////////////
@@ -16,33 +17,37 @@ var gulp=require('gulp'),
 //////////////////////////////////////////
 
 gulp.task('html',function(){
-	gulp.src('app/**/*.html')
+	return gulp.src('./client/**/*.html')
 	.pipe(reload({stream:true}));
 });
 
 ///////////////////////////////////////////
-// Scripts Task
+// Scripts Task - concat and uglify
 //////////////////////////////////////////
 
 gulp.task('scripts',function(){
-	gulp.src(['app/**/*.js','!app/**/*min.js'])
+	return gulp.src(['./client/**/*.js','!client/**/*min.js','!client/helpers/*.js'])
 		.pipe(plumber())
-		.pipe(rename({suffix:'.min'}))
+		.pipe(concat('app.js'))
+		.pipe(gulp.dest('./client/builds'))
+		.pipe(rename('app.min.js'))
 		.pipe(uglify())
-		.pipe(gulp.dest('./app/'))
+		.pipe(gulp.dest('./client/builds'))
 		.pipe(reload({stream:true}));
 });
 
 ///////////////////////////////////////////
-// Styles Task
+// Styles Task - concat and minify
 //////////////////////////////////////////
 
 gulp.task('styles',function(){
-	gulp.src(['app/styles/*.css','!app/styles/*min.css'])
+	return gulp.src(['./client/styles/*.css','!client/styles/*min.css'])
 		.pipe(plumber())
-		.pipe(rename({suffix:'.min'}))
+		.pipe(concat('styles.css'))
+		.pipe(gulp.dest('./client/builds'))
+		.pipe(rename('styles.min.css'))
 		.pipe(minify())
-		.pipe(gulp.dest('./app/styles/'))
+		.pipe(gulp.dest('./client/builds'))
 		.pipe(reload({stream:true}));
 });
 
@@ -53,7 +58,7 @@ gulp.task('styles',function(){
 gulp.task('browser-sync',['nodemon'], function() {
     browserSync.init({
         proxy: "http://localhost:3000",
-        files: ['./app'],
+        files: ['./client'],
         browser:['chrome.exe','firefox.exe'],
         port: 4000
     });
@@ -67,7 +72,7 @@ gulp.task('nodemon',[], function (cb) {
 	var started = false;
 	
 	return nodemon({
-		script: 'server.js',
+		script: './server/server.js',
 		watch:['./*.*']
 	}).on('start', function () {
 		// to avoid nodemon being started multiple times
@@ -87,9 +92,9 @@ gulp.task('nodemon',[], function (cb) {
 //////////////////////////////////////////
 
 gulp.task('watch',function(){
-	gulp.watch('app/**/*.js',['scripts']);
-	gulp.watch('app/styles/*.css',['styles']);
-	gulp.watch('app/**/*.html',['html']);
+	gulp.watch('./client/**/*.js',['scripts']);
+	gulp.watch('./client/styles/*.css',['styles']);
+	gulp.watch('./client/**/*.html',['html']);
 });
 
 ///////////////////////////////////////////

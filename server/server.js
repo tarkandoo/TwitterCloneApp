@@ -1,10 +1,10 @@
 var express=require('express');
 var app=express();
-var routes=require('./app/routes/routes');
+var routes=require('./routes/routes');
 var port=process.env.PORT || 3000;
 
 app.use('/',routes);
-app.use(express.static(__dirname+'/app'));
+app.use(express.static('./client'));
 
 
 app.listen(port,(err) => {
