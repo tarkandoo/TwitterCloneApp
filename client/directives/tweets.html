@@ -19,7 +19,9 @@
 								<img ng-src="/images/{{user.profilePicture}}" width="50px" height="50px">
 							</div>
 							<div class="col-lg-11 col-md-10 col-sm-10 col-xs-12">
-								<div><p>@{{user.username}} - {{tweet.createdOn}}</p></div>
+								<div>
+									<strong><a href="#">{{user.firstName + " " + user.lastName}}</a></strong> @{{user.username}} - {{tweet.createdOn}}
+								</div>
 								<div>
 									<!-- Tweet-->
 									<p>{{tweet.content}}</p>
