@@ -2,7 +2,6 @@
 <html ng-app="myApp">
 <head>
 	<title>Twitter clone app</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="/builds/styles.min.css">
 	<link rel="icon" href="favicon.ico" type="image/x-icon" />
 	
@@ -13,8 +12,8 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 </head>
 <body>
-	<div class="container-fluid">
-		<div class="row">
+	<div class="container-fluid" ng-controller="UserController">
+		<div class="row" ng-controller="TweetController">
 			<profile-box></profile-box>
 			<tweet-list></tweet-list>
 		</div>

@@ -1,30 +1,37 @@
-angular.module('myApp').controller('TweetController', ['$scope','$http',function($scope,$http) {
-  var userId="5ab14023a976e18bce0b912a";//hard coded because we don't have authentication
-  
+
+angular.module('myApp').controller('TweetController', ['$scope','$http','User',function($scope,$http,User) {
+  $scope.user=User.user;
   var Refresh=function(){
-    $scope.countTweets=0;
-    $http({
-    url: '/tweets', 
+  console.log($scope.user._id);
+  $http({
+    url: '/tweets',
     method: "GET",
-    params: {id: userId}
-    }).then(function(response){
-      $scope.tweets=response.data;
-      for (index = 0; index < response.data.length; ++index) {
-        $scope.tweets[index].timeAgo=timeago().format(response.data[index].createdOn);
-      }
-      if(response.data!==undefined)
-        $scope.countTweets=response.data.length;
-    });
-    
-    $scope.tweet={value:''};
+    params: {id: $scope.user._id}
+  }).then(function(response){
+    $scope.data={
+      countTweets:response.data.obj.count,
+      tweets:response.data.obj.tweets
+    };
+    for (index = 0; index < $scope.data.countTweets;index++) {
+      $scope.data.tweets[index].createdOn=timeago().format(response.data.obj.tweets[index].createdOn);
+    }
+    console.log($scope.data.tweets);
+  });
+
+  $scope.tweet={value:''};
   };
-  Refresh();//initial get
+  setTimeout(Refresh,100)//initial get with little delay to fetch $scope.user
+  
   $scope.addTweet=function(){
-      $scope.tweet.createdBy="5ab14023a976e18bce0b912a";//hard coded because we don't have authentication
-      $scope.tweet.createdOn=Date.now();
-      $http.post('/tweets',$scope.tweet);
-      //clear the input field and update tweets
-      Refresh();
+      $http({
+        url: '/tweets', 
+        method: "POST",
+        params: {id: $scope.user._id},
+        data:{tweet:$scope.tweet}
+      }).then(function(response){
+        //clear the input field and update tweets
+        Refresh();
+      });
     };
   $scope.removeTweet=function(id){
     $http.delete('/tweets/'+id).then(function(response){
