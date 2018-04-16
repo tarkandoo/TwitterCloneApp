@@ -15,10 +15,9 @@ angular.module('myApp').controller('TweetController', ['$scope','$http','User',f
       $scope.data.tweets[index].createdOn=timeago().format(response.data.obj.tweets[index].createdOn);
     }
   });
-
   $scope.tweet={value:''};
   };
-  setTimeout(Refresh,2000)//initial get with little delay to fetch $scope.user
+  setTimeout(Refresh,1000)//initial get with little delay to fetch $scope.user
   
   $scope.addTweet=function(){
       $http({

@@ -3,7 +3,6 @@ var myApp = angular.module('myApp',[]);
 angular.module('myApp').controller('TweetController', ['$scope','$http','User',function($scope,$http,User) {
   $scope.user=User.user;
   var Refresh=function(){
-  console.log($scope.user._id);
   $http({
     url: '/tweets',
     method: "GET",
@@ -16,12 +15,10 @@ angular.module('myApp').controller('TweetController', ['$scope','$http','User',f
     for (index = 0; index < $scope.data.countTweets;index++) {
       $scope.data.tweets[index].createdOn=timeago().format(response.data.obj.tweets[index].createdOn);
     }
-    console.log($scope.data.tweets);
   });
-
   $scope.tweet={value:''};
   };
-  setTimeout(Refresh,100)//initial get with little delay to fetch $scope.user
+  setTimeout(Refresh,1000)//initial get with little delay to fetch $scope.user
   
   $scope.addTweet=function(){
       $http({
